@@ -1817,7 +1817,7 @@
     const wrap = document.getElementById('bedroom-tabs-wrap');
     const tabsEl = document.getElementById('bedroom-tabs');
 
-    // Mark selected
+    // Mark selected（移到 return 之前，確保 n===0 也能標記）
     const card = document.querySelector('[onclick^="setBedrooms"]')?.closest('.q-card');
     if(card){
       card.querySelectorAll('.option-btn').forEach(b=>b.classList.remove('selected'));
@@ -1825,7 +1825,11 @@
       if(btns[n]) btns[n].classList.add('selected');
     }
 
-    if(n === 0){ wrap.style.display = 'none'; return; }
+    if(n === 0){
+      wrap.style.display = 'none';
+      document.querySelectorAll('.bedroom-section').forEach(s => s.style.display = 'none');
+      return;
+    }
     wrap.style.display = 'block';
 
     tabsEl.innerHTML = '';
